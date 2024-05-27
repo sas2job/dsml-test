@@ -1,9 +1,39 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+admin = User.create!(email: 'admin@example.com', password: 'password', role: 'admin')
+employee1 = User.create!(email: 'employee1@example.com', password: 'password', role: 'employee')
+employee2 = User.create!(email: 'employee2@example.com', password: 'password', role: 'employee')
+
+# pending → в ожидании
+# approved → утверждено
+# rejected → отклонено
+
+LeaveRequest.create!(
+  user: employee1,
+  status: :pending,
+  start_date: Date.today + 7.days,
+  end_date: Date.today + 14.days,
+  reason: 'Annual vacation'
+)
+
+LeaveRequest.create!(
+  user: employee1,
+  status: :approved,
+  start_date: Date.today + 30.days,
+  end_date: Date.today + 35.days,
+  reason: 'Family event'
+)
+
+LeaveRequest.create!(
+  user: employee2,
+  status: :rejected,
+  start_date: Date.today + 10.days,
+  end_date: Date.today + 12.days,
+  reason: 'Medical leave'
+)
+
+LeaveRequest.create!(
+  user: employee2,
+  status: :pending,
+  start_date: Date.today + 5.days,
+  end_date: Date.today + 10.days,
+  reason: 'Conference attendance'
+)

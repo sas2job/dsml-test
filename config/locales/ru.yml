@@ -1,0 +1,8 @@
+ru:
+  activerecord:
+    attributes:
+      leave_request:
+        statuses:
+          pending: "в ожидании"
+          approved: "одобрено"
+          rejected: "отклонено"
