@@ -31,6 +31,11 @@
                 <%= link_to 'Signup', '/signup', class: "nav-link" %>
               </li>
             <% end %>
+            <% if current_user&.role == "admin" %>
+              <li class="nav-item">
+                <%= link_to 'Пользователи', users_path, class: "nav-link" %>
+              </li>
+            <% end %>
           </ul>
         </div>
       </div>

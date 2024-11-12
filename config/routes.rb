@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # get 'up' => 'rails/health#show', as: :rails_health_check
   get '/signup', to: 'users#new'
   post '/users', to: 'users#create'
+  resources :users, only: %i[index edit update]
 
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
