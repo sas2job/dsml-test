@@ -36,6 +36,18 @@
                 <%= link_to 'Пользователи', users_path, class: "nav-link" %>
               </li>
             <% end %>
+            <% if current_user %>
+              <ul class="nav">
+                <li class="nav-item">
+                  <%= link_to 'Мои заявки', leave_requests_path, class: "nav-link" %>
+                </li>
+                <% if current_user.role == "admin" %>
+                  <li class="nav-item">
+                    <%= link_to 'Все заявки', all_requests_path, class: "nav-link" %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
           </ul>
         </div>
       </div>

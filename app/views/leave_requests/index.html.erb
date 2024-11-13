@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <h1 class="mb-4">Мои заявки</h1>
+
+  <% if @leave_requests.any? %>
+    <table class="table table-bordered table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Начало</th>
+          <th>Конец</th>
+          <th>Причина</th>
+          <th>Статус</th>
+          <th>Действия</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @leave_requests.each_with_index do |request, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= request.start_date %></td>
+            <td><%= request.end_date %></td>
+            <td><%= request.reason %></td>
+            <td>
+              <span class="badge 
+                <%= case request.status
+                  when "pending" then "bg-warning text-dark"
+                  when "approved" then "bg-success"
+                  when "rejected" then "bg-danger"
+                  end %>">
+                <%= request.translated_status %>
+              </span>
+            </td>
+            <td>
+              <%= link_to 'Редактировать', edit_leave_request_path(request), class: "btn btn-primary btn-sm" %>
+              <%= link_to 'Удалить', leave_request_path(request), 
+                          method: :delete, 
+                          data: { confirm: "Вы уверены?" }, 
+                          class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="alert alert-info" role="alert">
+      У вас пока нет заявок.
+    </div>
+  <% end %>
+</div>
