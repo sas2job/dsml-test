@@ -31,8 +31,13 @@ class LeaveRequestsController < ApplicationController
   end
 
   def update
-    ensure_owner_or_admin
-    if @leave_request.update(leave_request_params)
+    if current_user.admin?
+      if @leave_request.update(leave_request_params)
+        redirect_to all_requests_path, notice: 'Заявка успешно обновлена.'
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    elsif @leave_request.update(leave_request_params)
       redirect_to leave_requests_path, notice: 'Заявка успешно обновлена.'
     else
       render :edit, status: :unprocessable_entity
@@ -52,10 +57,14 @@ class LeaveRequestsController < ApplicationController
   end
 
   def leave_request_params
-    params.require(:leave_request).permit(:start_date, :end_date, :reason, :status)
+    if current_user.admin?
+      params.require(:leave_request).permit(:start_date, :end_date, :reason, :status)
+    else
+      params.require(:leave_request).permit(:start_date, :end_date, :reason)
+    end
   end
 
-  def ensure_admin_or_owner
+  def ensure_owner_or_admin
     return if current_user.role == 'admin' || @leave_request.user == current_user
 
     redirect_to leave_requests_path, alert: 'У вас нет прав для выполнения этого действия.'
