@@ -104,6 +104,11 @@ GEM
     drb (2.2.1)
     erubi (1.12.0)
     execjs (2.10.0)
+    factory_bot (6.5.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.4)
+      factory_bot (~> 6.5)
+      railties (>= 5.0.0)
     ffi (1.17.0-aarch64-linux-gnu)
     ffi (1.17.0-arm-linux-gnu)
     ffi (1.17.0-arm64-darwin)
@@ -262,6 +267,8 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    shoulda-matchers (5.3.0)
+      activesupport (>= 5.2.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -314,6 +321,7 @@ DEPENDENCIES
   bootstrap
   debug
   dotenv-rails (~> 3.1, >= 3.1.2)
+  factory_bot_rails
   importmap-rails
   jbuilder
   pg (~> 1.1)
@@ -323,6 +331,7 @@ DEPENDENCIES
   rspec-rails
   rubocop
   sassc-rails
+  shoulda-matchers (~> 5.0)
   simplecov
   sprockets-rails
   stimulus-rails
