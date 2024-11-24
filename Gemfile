@@ -55,6 +55,11 @@ group :development, :test do
   gem 'dotenv-rails', '~> 3.1', '>= 3.1.2'
 end
 
+group :test do
+  gem 'rspec-rails'
+  gem 'simplecov', require: false
+end
+
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
