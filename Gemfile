@@ -51,9 +51,11 @@ gem 'sassc-rails'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem 'database_cleaner'
   gem 'debug', platforms: %i[mri windows]
   gem 'dotenv-rails', '~> 3.1', '>= 3.1.2'
   gem 'factory_bot_rails'
+  gem 'rails-controller-testing', '~> 1.0.5'
 end
 
 group :test do
