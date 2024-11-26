@@ -3,6 +3,17 @@ require 'rails_helper'
 RSpec.describe SessionsController, type: :controller do
   let(:user) { create(:user, email: 'test@example.com', password: 'password') }
 
+  describe 'GET #new' do
+    context 'with render_views' do
+      render_views
+      it 'renders the new login page' do
+        get :new
+        expect(response.status).to eq(200)
+        expect(response.body).to include('Войти')
+      end
+    end
+  end
+
   describe 'POST #create' do
     context 'with valid credentials' do
       it 'logs in the user and redirects to the root path' do
