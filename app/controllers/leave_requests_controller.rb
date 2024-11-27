@@ -4,7 +4,12 @@ class LeaveRequestsController < ApplicationController
 
   # Список заявок сотрудника
   def index
-    @leave_requests = current_user.leave_requests.order(created_at: :desc)
+    if current_user
+      @leave_requests = current_user.leave_requests.order(created_at: :desc)
+      flash[:alert] = 'У вас нет заявок.' if @leave_requests.empty?
+    else
+      redirect_to login_path, alert: 'Пожалуйста, войдите в систему.'
+    end
   end
 
   # Список всех заявок (только для администратора)
