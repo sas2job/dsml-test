@@ -34,4 +34,32 @@ RSpec.describe LeaveRequestsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #all_requests' do
+    context 'when logged in as an admin' do
+      before do
+        sign_in(admin)
+        get :all_requests
+      end
+
+      it 'assigns all leave requests' do
+        expect(assigns(:leave_requests)).to eq(LeaveRequest.all)
+      end
+
+      it 'renders the all_requests page' do
+        expect(response.status).to eq(200)
+        expect(response.body).to include('Все заявки')
+      end
+    end
+
+    context 'when logged in as an employee' do
+      before { sign_in(employee) }
+
+      it 'redirects to the root path with an alert' do
+        get :all_requests
+        expect(response).to redirect_to(root_path)
+        expect(flash[:alert]).to eq('Доступ запрещен')
+      end
+    end
+  end
 end
