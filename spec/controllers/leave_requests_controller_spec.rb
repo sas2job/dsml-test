@@ -62,4 +62,41 @@ RSpec.describe LeaveRequestsController, type: :controller do
       end
     end
   end
+
+  describe 'POST #create' do
+    let(:valid_params) do
+      { leave_request: { start_date: Date.today, end_date: Date.today + 5, reason: 'Vacation' } }
+    end
+
+    let(:invalid_params) do
+      { leave_request: { start_date: '', end_date: '', reason: '' } }
+    end
+
+    context 'when logged in as an employee' do
+      before { sign_in(employee) }
+
+      it 'creates a new leave request with valid params' do
+        expect do
+          post :create, params: valid_params
+        end.to change(LeaveRequest, :count).by(1)
+        expect(response).to redirect_to(leave_requests_path)
+        expect(flash[:notice]).to eq('Заявка успешно создана.')
+      end
+
+      it 'does not create a leave request with invalid params' do
+        expect do
+          post :create, params: invalid_params
+        end.not_to change(LeaveRequest, :count)
+        expect(response.status).to eq(422)
+        expect(response.body).to include('Создать заявку')
+      end
+    end
+
+    context 'when not logged in' do
+      it 'redirects to the login page' do
+        post :create, params: valid_params
+        expect(response).to redirect_to('/login')
+      end
+    end
+  end
 end

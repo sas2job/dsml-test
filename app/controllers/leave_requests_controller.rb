@@ -1,6 +1,7 @@
 class LeaveRequestsController < ApplicationController
   before_action :set_leave_request, only: %i[edit update destroy]
   before_action :ensure_admin, only: [:all_requests]
+  before_action :authenticate_user!, only: [:create]
 
   # Список заявок сотрудника
   def index
@@ -77,5 +78,9 @@ class LeaveRequestsController < ApplicationController
 
   def ensure_admin
     redirect_to root_path, alert: 'Доступ запрещен' unless current_user&.role == 'admin'
+  end
+
+  def authenticate_user!
+    redirect_to login_path, alert: 'Пожалуйста, войдите в систему.' unless current_user
   end
 end
