@@ -1,4 +1,16 @@
 <%= form_with model: @leave_request, local: true do |f| %>
+  <% if @leave_request.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h4 class="alert-heading">
+        <%= t('errors.leave_request.header', count: @leave_request.errors.count) %>
+      </h4>
+      <ul>
+        <% @leave_request.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="mb-3">
     <%= f.label :start_date, "Дата начала", class: "form-label" %>
     <%= f.date_field :start_date, class: "form-control" %>

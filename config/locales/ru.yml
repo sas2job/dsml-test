@@ -6,3 +6,16 @@ ru:
           pending: "в ожидании"
           approved: "одобрено"
           rejected: "отклонено"
+    errors:
+      models:
+        leave_request:
+          attributes:
+            end_date:
+              cannot_be_before_start_date: "Дата окончания не может быть раньше даты начала."
+  errors:
+    leave_request:
+      header:
+        one: "%{count} ошибка не позволила сохранить заявку"
+        few: "%{count} ошибки не позволили сохранить заявку"
+        many: "%{count} ошибок не позволили сохранить заявку"
+            

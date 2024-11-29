@@ -35,3 +35,14 @@ en:
           pending: "Pending"
           approved: "Approved"
           rejected: "Rejected"
+    errors:
+      models:
+        leave_request:
+          attributes:
+            end_date:
+              cannot_be_before_start_date: "can't be before the start date."
+  errors:
+    leave_request:
+      header:
+        one: "%{count} error prevented the request from being saved"
+        other: "%{count} errors prevented the request from being saved"

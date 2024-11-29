@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe LeaveRequest, type: :model do
+  let(:user) { create(:user) }
+
   describe 'associations' do
     it { should belong_to(:user) }
   end
@@ -19,6 +21,19 @@ RSpec.describe LeaveRequest, type: :model do
     it 'returns the translated status' do
       leave_request = build(:leave_request, status: :pending)
       expect(leave_request.translated_status).to eq(I18n.t('activerecord.attributes.leave_request.statuses.pending'))
+    end
+  end
+
+  describe 'validations' do
+    it 'is valid with valid start_date and end_date' do
+      leave_request = build(:leave_request, user:, start_date: Date.today, end_date: Date.today + 1)
+      expect(leave_request).to be_valid
+    end
+
+    it 'is invalid if end_date is before start_date' do
+      leave_request = build(:leave_request, user:, start_date: Date.today, end_date: Date.yesterday)
+      expect(leave_request).to be_invalid
+      expect(leave_request.errors[:end_date]).to include('The end date cannot be before the start date.')
     end
   end
 end
