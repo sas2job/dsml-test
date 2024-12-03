@@ -33,7 +33,7 @@ RSpec.describe LeaveRequest, type: :model do
     it 'is invalid if end_date is before start_date' do
       leave_request = build(:leave_request, user:, start_date: Date.today, end_date: Date.yesterday)
       expect(leave_request).to be_invalid
-      expect(leave_request.errors[:end_date]).to include('The end date cannot be before the start date.')
+      expect(leave_request.errors[:end_date]).to include("can't be before the start date.")
     end
   end
 end
