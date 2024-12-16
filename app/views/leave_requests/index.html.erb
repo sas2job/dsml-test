@@ -1,5 +1,8 @@
 <div class="container mt-4">
-  <h1 class="mb-4">Мои заявки</h1>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Мои заявки</h1>
+    <%= link_to 'Новая заявка на отгул/отпуск', new_leave_request_path, class: "btn btn-success" %>
+  </div>
 
   <% if @leave_requests.any? %>
     <table class="table table-bordered table-hover">

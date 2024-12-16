@@ -99,4 +99,52 @@ RSpec.describe LeaveRequestsController, type: :controller do
       end
     end
   end
+
+  describe 'PATCH #update' do
+    let(:valid_update_params) do
+      { id: leave_request.id, leave_request: { reason: 'Updated Reason' } }
+    end
+
+    let(:invalid_update_params) do
+      { id: leave_request.id, leave_request: { reason: '' } }
+    end
+
+    context 'when logged in as an admin' do
+      before { sign_in(admin) }
+
+      it 'updates the leave request with valid params' do
+        patch :update, params: valid_update_params
+        expect(leave_request.reload.reason).to eq('Updated Reason')
+        expect(response).to redirect_to(all_requests_path)
+        expect(flash[:notice]).to eq('Заявка успешно обновлена.')
+      end
+
+      it 'does not update the leave request with invalid params' do
+        patch :update, params: invalid_update_params
+        expect(response.status).to eq(422)
+        expect(response.body).to include('Редактировать заявку')
+      end
+    end
+
+    context 'when logged in as the owner' do
+      before { sign_in(employee) }
+
+      it 'updates their own leave request' do
+        patch :update, params: valid_update_params
+        expect(leave_request.reload.reason).to eq('Updated Reason')
+        expect(response).to redirect_to(leave_requests_path)
+        expect(flash[:notice]).to eq('Заявка успешно обновлена.')
+      end
+    end
+
+    # context 'when logged in as another employee' do
+    #   before { sign_in(other_employee) }
+    #   it 'redirects to leave requests path with an alert' do
+    #     patch :update, params: { id: leave_request.id, leave_request: { reason: 'Updated Reason' } }
+
+    #     expect(response).to redirect_to(leave_requests_path)
+    #     expect(flash[:alert]).to eq('У вас нет прав для выполнения этого действия.')
+    #   end
+    # end
+  end
 end
