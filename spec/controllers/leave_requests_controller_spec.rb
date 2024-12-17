@@ -147,4 +147,42 @@ RSpec.describe LeaveRequestsController, type: :controller do
     #   end
     # end
   end
+
+  describe 'DELETE #destroy' do
+    context 'when logged in as an admin' do
+      before { sign_in(admin) }
+
+      it 'deletes the leave request' do
+        expect do
+          delete :destroy, params: { id: leave_request.id }
+        end.to change(LeaveRequest, :count).by(-1)
+        expect(response).to redirect_to(leave_requests_path)
+        expect(flash[:notice]).to eq('Заявка успешно удалена.')
+      end
+    end
+
+    context 'when logged in as the owner' do
+      before { sign_in(employee) }
+
+      it 'deletes their own leave request' do
+        expect do
+          delete :destroy, params: { id: leave_request.id }
+        end.to change(LeaveRequest, :count).by(-1)
+        expect(response).to redirect_to(leave_requests_path)
+        expect(flash[:notice]).to eq('Заявка успешно удалена.')
+      end
+    end
+
+    # context 'when logged in as another employee' do
+    #   let(:other_employee) { create(:user, role: 'employee') }
+
+    #   before { sign_in(other_employee) }
+
+    #   it 'redirects to leave requests path with an alert' do
+    #     delete :destroy, params: { id: leave_request.id }
+    #     expect(response).to redirect_to(leave_requests_path)
+    #     expect(flash[:alert]).to eq('У вас нет прав для выполнения этого действия.')
+    #   end
+    # end
+  end
 end
