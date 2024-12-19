@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
 
+  resource :password_reset, only: %i[new create edit update]
+
   # Defines the root path route ("/")
   root 'welcome#index'
 end
