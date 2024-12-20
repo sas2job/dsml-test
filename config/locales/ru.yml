@@ -18,6 +18,14 @@ ru:
         one: "%{count} ошибка не позволила сохранить заявку"
         few: "%{count} ошибки не позволили сохранить заявку"
         many: "%{count} ошибок не позволили сохранить заявку"
+  sessions:
+    new:
+      title: Войти
+      form:
+        email: E-mail
+        password: Пароль
+        submit: Войти
+        forgot_password: Я забыл пароль
   password_resets:
     new:
       title: Сбросить пароль

@@ -46,6 +46,14 @@ en:
       header:
         one: "%{count} error prevented the request from being saved"
         other: "%{count} errors prevented the request from being saved"
+  sessions:
+    new:
+      title: Log In
+      form:
+        email: E-mail
+        password: Password
+        submit: Sign in
+        forgot_password: I forgot my password
   password_resets:
     new:
       title: Reset password
