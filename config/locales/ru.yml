@@ -32,4 +32,7 @@ ru:
       form:
         email: E-mail
         submit: Отправить инструкцию для сброса пароля
-        back: Назад ко входу в систему          
+        back: Назад ко входу в систему
+  password_reset_mailer:
+    reset_email:
+      subject: 'Сброс пароля | DSML TEST'

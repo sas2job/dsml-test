@@ -61,3 +61,6 @@ en:
         email: E-mail
         submit: Send reset instructions
         back: Back to sign in
+  password_reset_mailer:
+    reset_email:
+      subject: 'Password Reset | DSML TEST'
